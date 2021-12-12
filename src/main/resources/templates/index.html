@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Scavenger Hunt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/vnd.microsoft.icon" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fonts/material-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fonts/ubuntu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/materialize.min.css}" />
+    <script type="text/javascript" th:src="@{/js/progressbar.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/typewriter.js}"></script>
+</head>
+<body>
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+        <div id="progress-text"></div>
+    </div>
+    <div id="quiz-container">
+        <div style="height: 50%;">
+            <div id="intro">
+                <h5 th:text="${intro}"></h5>
+                <a class="button" onclick="startQuiz()">begin</a>
+            </div>
+            <div id="quiz">
+                <h5 id="message"></h5>
+                <div id="answer-container">
+                    <form class="col s12" onsubmit="checkAnswer(); return false;" autocomplete="off">
+                        <div style="text-align: center; margin-top: 40px;">
+                            <input placeholder="Your answer" id="answer" type="text" spellcheck="false">
+                        </div>
+                        <a class="button" onclick="checkAnswer()">submit</a>
+                    </form>
+                </div>
+            </div>
+            <div id="prize">
+                <a id="prize-link" class="button" href="">complete</a>
+            </div>
+        </div>
+    </div>
+    <div class="square-container" >
+        <ul class="square">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/quiz.js}"></script>
+</body>
+</html>

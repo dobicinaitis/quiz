@@ -1,0 +1,52 @@
+static:
+  intro: "Answer a series of Christmas questions to receive a present from Santa 🎅"
+  outro: "Congrats, you answered all questions right! Claim your prize below 🎉"
+  prize-link: "https://www.youtube.com/watch?v=ItGkqRcJFRQ"
+  quiz-items:
+    - id: 1
+      question: "How many ghosts show up in A Christmas Carol?"
+      answers:
+        - "Four"
+        - "4"
+    - id: 2
+      question: "Is Die Hard a Christmas movie?"
+      answers:
+        - "Yes"
+    - id: 3
+      question: "What are you supposed to do when you find yourself under the mistletoe?"
+      answers:
+        - "Kiss"
+    - id: 4
+      question: "Which country started the tradition of putting up a Christmas tree?"
+      answers:
+        - "Germany"
+    - id: 5
+      question: "What was the first company that used Santa Claus in advertising?"
+      answers:
+        - "Coca-Cola"
+        - "Coca Cola"
+        - "Cola"
+    - id: 6
+      question: "How old is Kevin McCallister in Home Alone?"
+      answers:
+        - "Eight"
+        - "8"
+    - id: 7
+      question: "What is the name of the little girl who befriends the Grinch in the 2000 film?"
+      answers:
+        - "Cindy Lou Who"
+        - "Cindy Lou"
+        - "Cindy"
+    - id: 8
+      question: "What is the name of Kristoff's reindeer in Frozen?"
+      answers:
+        - "Sven"
+    - id: 9
+      question: "Which famous Christmas song includes the lyrics: Dashing through the snow, in a one-horse open sleigh?"
+      answers:
+        - "Jingle Bells"
+    - id: 10
+      question: "Which TV family has a pet dog called Santa’s Little Helper?"
+      answers:
+        - "The Simpsons"
+        - "Simpsons"
