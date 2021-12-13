@@ -3,11 +3,10 @@ let currentQuestionId;
 let currentQuestion;
 let answeredQuestions = [];
 let isFinalQuestion = false;
+let processingFinalQuestion = false;
 
-const typeSpeed = 40;
-const typewriter = new Typewriter(id('message'), {
-    loop: false, delay: typeSpeed
-});
+const typeSpeed = 45;
+let messageField = id('message');
 
 // define classes
 class Question {
@@ -71,12 +70,6 @@ class PrizeResponse {
 
 // do stuff
 async function startQuiz() {
-    let intro = id('intro');
-    intro.style.transition = '0.8s';
-    intro.style.opacity = '0';
-    intro.style.display = 'none';
-    await sleep(800);
-
     // get 1st question
     const firstQuestion = Question.from(await fetch('/api/quiz/begin')
         .then(response => {
@@ -86,23 +79,27 @@ async function startQuiz() {
     currentQuestionId = firstQuestion.id;
     currentQuestion = firstQuestion.text;
 
+    // hide intro
+    let intro = id('intro');
+    intro.style.transition = '0.8s';
+    intro.style.opacity = '0';
+    await sleep(800);
+    intro.style.display = 'none';
+
     // reveal quiz elements
     id('quiz').style.opacity = '1';
+    await typeMessage(firstQuestion.text);
 
-    typeMessage(firstQuestion.text);
-    await sleep(firstQuestion.text.length * typeSpeed - 500);
-
-    // reveal progress bar
-    let progress = id('progress-container');
-    progress.style.transition = '1s';
-    progress.style.opacity = '1';
-    updateProgressBar(firstQuestion.progress.text, firstQuestion.progress.decimal);
-
-    await sleep(1000);
     let answerContainer = id('answer-container');
     answerContainer.style.visibility = 'visible';
     answerContainer.style.transition = '1s';
     answerContainer.style.opacity = '1';
+
+    // reveal progress bar
+    let progress = id('progress-container');
+    progress.style.transition = '2s';
+    progress.style.opacity = '1';
+    updateProgressBar(firstQuestion.progress.text, firstQuestion.progress.decimal);
 }
 
 // init progress bar
@@ -121,20 +118,41 @@ function updateProgressBar(text, progress) {
     id('progress-text').innerText = text;
 }
 
-function typeMessage(message) {
+async function typeMessage(message) {
+    // fade out old text
+    messageField.style.transition = '0.8s';
+    messageField.style.opacity = '0';
+    await sleep(1000);
+    messageField.innerText = " ";
+    messageField.style.opacity = '1';
+
+    const typewriter = new Typewriter(messageField, {
+        loop: false, delay: typeSpeed
+    });
+
     typewriter
-        .deleteAll()
         .typeString(message)
-        .pauseFor(1000)
         .start();
+
+    await sleep(message.length * typeSpeed);
 }
 
 async function checkAnswer() {
+    // prevent repeated submissions for final question
+    if (processingFinalQuestion){
+        return;
+    }
+
+    if (isFinalQuestion){
+        processingFinalQuestion = true;
+    }
+
     let answer = id('answer').value;
 
     if (!answer) {
-        typeMessage("Provide an answer first 😋");
-        typeMessage(currentQuestion);
+        await typeMessage("Provide an answer first 😋");
+        await sleep(1000);
+        await typeMessage(currentQuestion);
         return;
     }
 
@@ -143,20 +161,22 @@ async function checkAnswer() {
 
     let nextQuestion;
     if (response.status == 'ok') {
-        typeMessage("Yey, that is correct 🥳");
+        id('answer').value = "";
+        id('answer').innerText = "";
+
+        await typeMessage("Yey, that is correct 🥳");
+        await sleep(500);
         answeredQuestions.push(currentQuestionId);
 
         if (!isFinalQuestion) {
             nextQuestion = await getNextQuestion(response.nextQuestionId);
 
             if (!isEmpty(nextQuestion)) {
-                id('answer').value = "";
                 currentQuestionId = nextQuestion.id;
                 currentQuestion = nextQuestion.text;
                 isFinalQuestion = nextQuestion.isFinal;
-                typeMessage(currentQuestion);
-                await sleep(5000);
                 updateProgressBar(nextQuestion.progress.text, nextQuestion.progress.decimal);
+                await typeMessage(currentQuestion);
                 return true;
             }
         }
@@ -165,11 +185,10 @@ async function checkAnswer() {
                 new PrizeRequest(answeredQuestions)));
 
             if (!isEmpty(prizeResponse)) {
-                typeMessage(prizeResponse.text);
+                await typeMessage(prizeResponse.text);
                 id('prize-link').href = prizeResponse.prizeLink;
 
                 // hide answer container
-                await sleep(1000);
                 let answerContainer = id('answer-container');
                 answerContainer.style.transition = '1s';
                 answerContainer.style.opacity = '0';
@@ -182,7 +201,6 @@ async function checkAnswer() {
                 prize.style.visibility = 'visible';
                 prize.style.opacity = '1';
 
-                await sleep(6000);
                 let prizeLink = id('prize-link');
                 prizeLink.style.display = 'block';
                 prizeLink.style.visibility = 'visible';
@@ -191,15 +209,19 @@ async function checkAnswer() {
 
                 return;
             }
+
+            processingFinalQuestion = false;
         }
     } else if (response.status == 'nok') {
-        typeMessage("Nope, try again");
-        typeMessage(currentQuestion);
+        await typeMessage("Nope, try again");
+        await sleep(1000);
+        await typeMessage(currentQuestion);
         return;
     }
 
-    typeMessage("Something went wrong, please try again 🙁");
-    typeMessage(currentQuestion);
+    await typeMessage("Something went wrong, please try again 🙁");
+    await sleep(1000);
+    await typeMessage(currentQuestion);
 }
 
 async function getNextQuestion(nextQuestionId) {
