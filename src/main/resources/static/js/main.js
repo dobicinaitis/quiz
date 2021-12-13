@@ -1,4 +1,4 @@
-// useful function
+// useful functions
 function id(elementId) {
     return document.getElementById(elementId);
 }

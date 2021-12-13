@@ -18,10 +18,6 @@ Answer a series of questions to get a "prize" link.
 ### Useful:
 * [Build & Run](doc/build-and-run.md)
 * [API examples](doc/api-call-examples.md)
-* [GitLab setup](doc/gitlab-setup.md) <sup>*</sup>
-* [Kubernetes setup](doc/kubernetes-setup.md) <sup>*</sup>
-
-<sup>*</sup> Relevant if you wish to run the app in Kubernetes
 
 ### Library docs:
 
