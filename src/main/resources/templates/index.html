@@ -17,10 +17,13 @@
         <div id="progress-bar"></div>
         <div id="progress-text"></div>
     </div>
-    <div id="quiz-container">
-        <div style="height: 50%;">
+    <div id="quiz-container-outer">
+        <div id="quiz-container-inner">
             <div id="intro">
-                <h5 th:utext="${intro}"></h5>
+                <h4 th:utext="${title}"></h4>
+                <div id="description-container">
+                    <h6 id="description-text" th:utext="${intro}"></h6>
+                </div>
                 <a class="button" onclick="startQuiz()">begin</a>
             </div>
             <div id="quiz">
@@ -39,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="square-container" >
+    <div class="square-container">
         <ul class="square">
             <li></li>
             <li></li>

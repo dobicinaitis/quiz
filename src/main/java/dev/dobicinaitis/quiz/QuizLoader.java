@@ -22,6 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class QuizLoader {
+    private String title;
     private String intro;
     private String outro;
     private String prizeLink;

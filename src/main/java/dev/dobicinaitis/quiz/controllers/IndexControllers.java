@@ -15,6 +15,7 @@ public class IndexControllers {
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
 
+        model.addAttribute("title", quizService.getQuiz().getTitle());
         model.addAttribute("intro", quizService.getQuiz().getIntro());
 
         return "index";

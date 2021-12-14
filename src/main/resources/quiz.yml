@@ -1,4 +1,5 @@
 static:
+  title: "Christmas Quiz"
   intro: "Answer a series of Christmas questions to receive a present from Santa 🎅"
   outro: "Congrats, you answered all questions right! Claim your prize below 🎉"
   prize-link: "https://www.youtube.com/watch?v=ItGkqRcJFRQ"
