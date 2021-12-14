@@ -143,7 +143,7 @@ async function typeMessage(message) {
         .typeString(message)
         .start();
 
-    await sleep(message.length * typeDelay);
+    await sleep(message.length * delay);
 }
 
 async function checkAnswer() {
