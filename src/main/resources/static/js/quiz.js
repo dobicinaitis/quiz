@@ -168,7 +168,6 @@ async function checkAnswer() {
     const request = new CheckAnswerRequest(currentQuestionId, answer);
     const response = CheckAnswerResponse.from(await post('/api/quiz/check-answer', request));
 
-    let nextQuestion;
     if (response.status == 'ok') {
         id('answer').value = "";
         id('answer').innerText = "";
@@ -178,7 +177,7 @@ async function checkAnswer() {
         answeredQuestions.push(currentQuestionId);
 
         if (!isFinalQuestion) {
-            nextQuestion = await getNextQuestion(response.nextQuestionId);
+            let nextQuestion = await getNextQuestion(response.nextQuestionId);
 
             if (!isEmpty(nextQuestion)) {
                 currentQuestionId = nextQuestion.id;
@@ -222,7 +221,7 @@ async function checkAnswer() {
             processingFinalQuestion = false;
         }
     } else if (response.status == 'nok') {
-        await typeMessage("Nope, try again");
+        await typeMessage("Nope, try again 😋");
         await sleep(1000);
         await typeMessage(currentQuestion);
         return;
