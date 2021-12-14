@@ -19,7 +19,7 @@ java -jar build/libs/quiz-*.jar
 ```
 #### Docker image
 ```shell
-docker run --env-file ./.setvar-production-docker -it --rm quiz:latest
+docker run -it --rm quiz:latest
 
-# docker run --env-file ./.setvar-production-docker -it --rm registry.gitlab.com/dobicinaitis/quiz:latest
+# docker run -it --rm registry.gitlab.com/dobicinaitis/quiz:latest
 ```
