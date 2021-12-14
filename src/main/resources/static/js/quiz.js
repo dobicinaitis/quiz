@@ -5,7 +5,10 @@ let answeredQuestions = [];
 let isFinalQuestion = false;
 let processingFinalQuestion = false;
 
-const typeSpeed = 45;
+const typeDelay = 45;
+const longTextTypeDelay = 15;
+const longTextThreshold = 75; // characters
+
 let messageField = id('message');
 
 // define classes
@@ -126,15 +129,21 @@ async function typeMessage(message) {
     messageField.innerText = " ";
     messageField.style.opacity = '1';
 
+    let delay = typeDelay;
+
+    if (message.length >= longTextThreshold){
+        delay = longTextTypeDelay;
+    }
+
     const typewriter = new Typewriter(messageField, {
-        loop: false, delay: typeSpeed
+        loop: false, delay: delay
     });
 
     typewriter
         .typeString(message)
         .start();
 
-    await sleep(message.length * typeSpeed);
+    await sleep(message.length * typeDelay);
 }
 
 async function checkAnswer() {
