@@ -130,8 +130,9 @@ async function typeMessage(message) {
     messageField.style.opacity = '1';
 
     let delay = typeDelay;
+    let messageLength = message.replace(/<[^>]+>/g, '').length; // excluding HTML tags
 
-    if (message.length >= longTextThreshold){
+    if (messageLength >= longTextThreshold){
         delay = longTextTypeDelay;
     }
 
