@@ -21,6 +21,10 @@ body {
     background-color: var(--background-color);
 }
 
+a {
+    color: var(--accent-light) !important;
+}
+
 #progress-container {
     position: absolute;
     top: 0;
@@ -143,7 +147,7 @@ input:focus {
     -ms-user-select: none;
     user-select: none;
     background-color: var(--accent);
-    color: #fff;
+    color: #ffffff !important;
     box-shadow: 0 8px 32px 0 rgba(25, 28, 30, 0.1);
     width: 240px;
     font-size: 14px;
