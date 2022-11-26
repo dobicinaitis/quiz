@@ -16,7 +16,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .components(new Components())
                 .info(new Info()
-                        .title("Scavenger Hunt")
+                        .title("Quiz")
                         .description("Quiz API documentation")
                 );
     }

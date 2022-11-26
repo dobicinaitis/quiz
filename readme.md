@@ -1,4 +1,4 @@
-# Mini Scavenger Hunt
+# Quiz
 
 Answer a series of questions to get a "prize" link.
 
@@ -13,7 +13,7 @@ Answer a series of questions to get a "prize" link.
 * Clone this repository
 * Define your questions, answers, prize link, etc. in `quiz.yaml`
 * Run the app `./gradlew bootRun`
-* Check out quiz at http://localhost:8080
+* Check out the quiz at http://localhost:8080
 
 ### Useful:
 * [Build & Run](doc/build-and-run.md)
